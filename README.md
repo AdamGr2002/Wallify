@@ -1,0 +1,2 @@
+# Wallify
+AI wallpaper generator 
