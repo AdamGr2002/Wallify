@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  clerkId   String   @unique
+  credits   Int      @default(3)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  wallpapers Wallpaper[]
+}
+
+model Wallpaper {
+  id                 String   @id @default(cuid())
+  userId             String
+  prompt             String
+  style              String
+  deviceType         String
+  width              Int
+  height             Int
+  cloudinaryPublicId String
+  cloudinaryUrl      String
+  createdAt          DateTime @default(now())
+  user               User     @relation(fields: [userId], references: [id])
+}
